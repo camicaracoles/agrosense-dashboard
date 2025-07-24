@@ -7,17 +7,41 @@ import {
   PointElement,
   Tooltip,
   Legend,
+  Filler,
 } from 'chart.js';
+import type { FC } from 'react';
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
-const WeatherChart = () => {
+interface WeatherChartProps {
+  history: number[];
+}
+
+const WeatherChart: FC<WeatherChartProps> = ({ history }) => {
+  // Validación: si history no tiene datos, muestra mensaje
+  if (!history || history.length === 0) {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6 w-full mt-6">
+        <h2 className="text-lg font-bold text-green-700 mb-4">Evolución de Temperatura</h2>
+        <p className="text-gray-500">No hay datos disponibles.</p>
+      </div>
+    );
+  }
+
+  const labels = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+  // Si history.length < labels.length, rellenamos con nulls
+  const dataPadded = [...history];
+  while (dataPadded.length < labels.length) {
+    dataPadded.push(null);
+  }
+
   const data = {
-    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+    labels,
     datasets: [
       {
         label: 'Temperatura (°C)',
-        data: [22, 23, 24, 26, 25, 27, 28],
+        data: dataPadded,
         borderColor: '#22c55e',
         backgroundColor: 'rgba(34, 197, 94, 0.2)',
         fill: true,
@@ -31,6 +55,11 @@ const WeatherChart = () => {
     plugins: {
       legend: {
         position: 'top' as const,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
       },
     },
   };
