@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
-import DashboardCard from "./components/DashboardCard";
+import DashboardCard from "./components/DashboardCard";import WeatherChart from "./components/WeatherChart";
+
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <DashboardCard title="Alertas Activas" value="2" color="text-red-600" />
         </div>
       </main>
+      <WeatherChart />
     </div>
   );
 }
