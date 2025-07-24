@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
-import DashboardCard from "./components/DashboardCard";import WeatherChart from "./components/WeatherChart";
+import DashboardCard from "./components/DashboardCard";
+import WeatherChart from "./components/WeatherChart";
 
 
 
