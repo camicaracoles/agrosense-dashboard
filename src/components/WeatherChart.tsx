@@ -33,7 +33,7 @@ const WeatherChart: FC<WeatherChartProps> = ({ history }) => {
   // Si history.length < labels.length, rellenamos con nulls
   const dataPadded = [...history];
   while (dataPadded.length < labels.length) {
-    dataPadded.push(null);
+    dataPadded.push(NaN);
   }
 
   const data = {
