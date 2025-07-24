@@ -5,7 +5,6 @@ import WeatherChart from "./components/WeatherChart";
 import { getSensorData } from './services/weatherApi';
 import type { SensorData } from './services/weatherApi';
 
-
 function App() {
   const [sensorData, setSensorData] = useState<SensorData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,12 +17,12 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(); // Primera carga inmediata
 
-    // Actualiza datos cada 10 segundos
-    const interval = setInterval(fetchData, 10000);
+    // Actualiza datos cada 60 segundos (1 minuto)
+    const interval = setInterval(fetchData, 60000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // Limpia el intervalo al desmontar
   }, []);
 
   return (
