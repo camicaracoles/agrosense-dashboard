@@ -6,17 +6,38 @@ const AIChat = () => {
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const isFakeMode = !import.meta.env.VITE_OPENAI_API_KEY || import.meta.env.VITE_OPENAI_API_KEY.trim() === '';
+
   const handleAsk = async () => {
     if (!question.trim()) return;
     setLoading(true);
-    const response = await askOpenAI(question);
-    setAnswer(response);
-    setLoading(false);
+    setAnswer('');
+    try {
+      const response = await askOpenAI(question);
+      setAnswer(response);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error('Error fetching from OpenAI:', error.message);
+        alert(error.message);
+      } else {
+        console.error('Unexpected error', error);
+        alert('An unexpected error occurred');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6 w-full mt-6">
       <h2 className="text-lg font-bold text-green-700 mb-4">Agente IA: Consulta sobre tus cultivos</h2>
+
+      {isFakeMode && (
+        <div className="mb-4 text-sm text-yellow-600 font-semibold">
+          ⚠️ Estás en Modo Fake Bot (sin conexión real a OpenAI)
+        </div>
+      )}
+
       <div className="flex gap-2 mb-4">
         <input
           type="text"
@@ -33,6 +54,7 @@ const AIChat = () => {
           {loading ? 'Consultando...' : 'Preguntar'}
         </button>
       </div>
+
       {answer && (
         <div className="bg-gray-100 p-4 rounded-lg text-gray-700">
           <strong>Respuesta IA:</strong> {answer}
