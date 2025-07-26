@@ -1,69 +1,98 @@
-# React + TypeScript + Vite
+🚀 React + TypeScript + Vite + OpenAI API Project
+This project is a boilerplate using React, TypeScript, and Vite, integrated with the OpenAI API. It includes best practices like environment variables, modular folder structure, and advanced ESLint configuration with type-checking.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📦 Tech Stack
 
-Currently, two official plugins are available:
+Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React
 
-## Expanding the ESLint configuration
+TypeScript
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+OpenAI API
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+ESLint (with TypeScript-aware linting)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+SWC (optional) — For ultra-fast builds
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🗂️ Project Structure
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+/public
+/src
+  ├── assets/        # Images, icons, etc.
+  ├── components/    # Reusable React components
+  ├── hooks/         # Custom React hooks
+  ├── services/      # API calls (OpenAI, etc.)
+  │    └── openaiApi.ts
+  ├── pages/         # Page components
+  ├── App.tsx
+  └── main.tsx
+.env                 # Your local environment variables (API keys)
+.env.example         # Example file to share with others
+.eslint.config.js    # Advanced ESLint configuration
+tsconfig.json
+tsconfig.app.json
+tsconfig.node.json
+vite.config.ts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+⚙️ Setup Instructions
+1. Clone the Repository
+git clone https://github.com/camicaracoles/agrosense-dashboard.git
+cd agrosense-dashboard
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Install Dependencies
+npm install
+
+3. Configure Environment Variables
+Create a .env file based on .env.example:
+cp .env.example .env
+
+Edit .env and add your OpenAI API Key:
+VITE_OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXX
+
+4. Run the Development Server
+npm run dev
+
+5. Lint the Project
+npm run lint
+
+6. Build for Production
+npm run build
+
+🧠 How to Use OpenAI API
+In /src/services/openaiApi.ts you’ll find a function to make requests to OpenAI:
+
+export const askOpenAI = async (question: string): Promise<string> => {
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  // fetch request to OpenAI...
+};
+
+📝 ESLint Configuration
+
+This project uses an advanced ESLint setup with:
+
+TypeScript-aware rules.
+React specific best practices.
+Type-checked linting.
+
+You can modify .eslint.config.js to add custom rules if needed.
+
+🔒 Security Note
+Never commit your .env file or API Keys to a public repository.
+The .gitignore already excludes .env by default.
+
+🚧 To Do
+ Add UI components
+
+ Implement Fake API Mode (for development without API Key)
+
+ Add error handling for API calls
+
+ Deploy to Vercel / Netlify
+
+📄 License
+MIT License — Feel free to use and adapt.
+
+✨ Author
+Camila García (@camicaracoles)
+

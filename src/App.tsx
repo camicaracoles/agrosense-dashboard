@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import DashboardCard from "./components/DashboardCard";
 import WeatherChart from "./components/WeatherChart";
+import AIChat from "./components/AIChat";
 import { getSensorData } from './services/weatherApi';
 import type { SensorData } from './services/weatherApi';
 
@@ -44,6 +45,7 @@ function App() {
             </div>
 
             <WeatherChart history={sensorData.history} />
+            <AIChat />
           </>
         )}
       </main>
