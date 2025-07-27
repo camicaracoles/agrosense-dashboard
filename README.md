@@ -1,39 +1,33 @@
-🚀 React + TypeScript + Vite + OpenAI API Project
-This project is a boilerplate using React, TypeScript, and Vite, integrated with the OpenAI API. It includes best practices like environment variables, modular folder structure, and advanced ESLint configuration with type-checking.
+# AgroSense Dashboard 🌱
 
-📦 Tech Stack
+Interactive agricultural monitoring dashboard, developed with React + TypeScript + Tailwind CSS, simulating real-time sensor data and integrating an AI agent for intelligent queries.
 
-Vite
+## 🔗 Demo Online
+[Ver Demo en Vercel](
+https://agrosense-dashboard.vercel.app/)
 
-React
+## 🖥️ Technologies Used
+- React + Vite + TypeScript.
+- Tailwind CSS.
+- Chart.js (temperature graph).
+- Simulated API consumption (mock JSON).
+- OpenAI API integration (AI chat).
 
-TypeScript
+## 📊 Features
+- Real-time display of temperature, humidity, water consumption, and alerts.
+- Historical temperature graph.
+- Consult an AI agent about crop questions.
+- Responsive and clean design.
 
-OpenAI API
+## 🎯 Objective
+This project was created as a technical demo for MIIDO, showcasing skills in:
+- Creating modern dashboards.
+- Managing API statuses and consumption.
+- Integrating AI applied to the end user.
+- Best practices in frontend development.
 
-ESLint (with TypeScript-aware linting)
-
-SWC (optional) — For ultra-fast builds
-
-🗂️ Project Structure
-
-/public
-/src
-  ├── assets/        # Images, icons, etc.
-  ├── components/    # Reusable React components
-  ├── hooks/         # Custom React hooks
-  ├── services/      # API calls (OpenAI, etc.)
-  │    └── openaiApi.ts
-  ├── pages/         # Page components
-  ├── App.tsx
-  └── main.tsx
-.env                 # Your local environment variables (API keys)
-.env.example         # Example file to share with others
-.eslint.config.js    # Advanced ESLint configuration
-tsconfig.json
-tsconfig.app.json
-tsconfig.node.json
-vite.config.ts
+## 👤 Developed by
+Camila García | [GitHub](https://github.com/camicaracoles) | [LinkedIn](https://www.linkedin.com/in/camilafranciscagarciabrito/)
 
 ⚙️ Setup Instructions
 1. Clone the Repository
