@@ -3,27 +3,34 @@ import Navbar from "./components/Navbar";
 import DashboardCard from "./components/DashboardCard";
 import WeatherChart from "./components/WeatherChart";
 import AIChat from "./components/AIChat";
+import AlertHistoryModal from "./components/AlertHistoryModal"; // Asegúrate de importarlo
 import { getSensorData } from './services/weatherApi';
 import type { SensorData } from './services/weatherApi';
 
 function App() {
   const [sensorData, setSensorData] = useState<SensorData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [alertHistory, setAlertHistory] = useState<{ timestamp: string; message: string }[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchData = async () => {
-    setLoading(true);
     const data = await getSensorData();
     setSensorData(data);
-    setLoading(false);
+
+    if (data.alerts > 0) {
+      const newAlert = {
+        timestamp: new Date().toLocaleString(),
+        message: "Alerta activa detectada en sensor de temperatura",
+      };
+      setAlertHistory((prev) => [newAlert, ...prev]);
+    }
   };
 
   useEffect(() => {
-    fetchData(); // Primera carga inmediata
+    fetchData(); // Carga inicial
 
-    // Actualiza datos cada 60 segundos (1 minuto)
-    const interval = setInterval(fetchData, 60000);
+    const interval = setInterval(fetchData, 60000); // Actualiza cada minuto
 
-    return () => clearInterval(interval); // Limpia el intervalo al desmontar
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -33,7 +40,7 @@ function App() {
         <h1 className="text-3xl font-bold text-green-700 mb-4">Panel de Monitoreo</h1>
         <p className="text-gray-600 mb-6">Datos en tiempo real de tus cultivos</p>
 
-        {loading || !sensorData ? (
+        {!sensorData ? (
           <p>Cargando datos...</p>
         ) : (
           <>
@@ -45,10 +52,24 @@ function App() {
             </div>
 
             <WeatherChart history={sensorData.history} />
-            <AIChat />
+            <AIChat /> {/* Widget de Predicción IA */}
           </>
         )}
+
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-green-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700 mt-6"
+        >
+          Ver Historial de Alertas
+        </button>
       </main>
+
+      {/* Modal de Alertas */}
+      <AlertHistoryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        alerts={alertHistory}
+      />
     </div>
   );
 }
