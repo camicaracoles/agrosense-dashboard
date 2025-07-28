@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import DashboardCard from "./components/DashboardCard";
 import WeatherChart from "./components/WeatherChart";
 import AIChat from "./components/AIChat";
+import SensorManager from "./components/SensorManager";
 import AlertHistoryModal from "./components/AlertHistoryModal"; // Asegúrate de importarlo
 import { getSensorData } from './services/weatherApi';
 import type { SensorData } from './services/weatherApi';
@@ -62,6 +63,7 @@ function App() {
         >
           Ver Historial de Alertas
         </button>
+        <SensorManager />
       </main>
 
       {/* Modal de Alertas */}
