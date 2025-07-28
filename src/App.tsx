@@ -68,7 +68,7 @@ function App() {
       <AlertHistoryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        alerts={alertHistory}
+        alerts={alertHistory ?? []}
       />
     </div>
   );
